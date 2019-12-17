@@ -18,6 +18,7 @@ def dummy_data(request):
     dtrain = lgb.Dataset(data, label=label)
     return dtrain
 
+@pytest.mark.skipif(sys.version_info < (3, 6), reason="lightgbm was segfaulting in CI")
 def test_basic_lightgbm(dummy_data, wandb_init_run):
     param = {'max_depth': 2, 'eta': 1}
     num_round = 2
